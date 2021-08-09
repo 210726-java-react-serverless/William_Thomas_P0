@@ -12,6 +12,20 @@ public class StudentRegisterScreen extends Screen{
 
     @Override
     public void render() throws IOException {
-        System.out.println("register");
+        System.out.println("Student Register Screen:");
+
+        System.out.println("Please enter your first name");
+        String firstname = entryReader.readLine();
+
+        System.out.println("Please enter your last name");
+        String lastname = entryReader.readLine();
+
+        System.out.println("Please enter your email");
+        String email = entryReader.readLine();
+        System.out.println("Please enter your username");
+        String username = entryReader.readLine();
+
+        System.out.println("Please enter your password");
+        String password = entryReader.readLine();
     }
 }

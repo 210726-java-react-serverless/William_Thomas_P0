@@ -13,6 +13,12 @@ public class FacultyLogInScreen extends Screen{
 
     @Override
     public void render() throws IOException {
-        System.out.println("FacultyLogin");
+        System.out.println("Faculty Login Screen:");
+
+        System.out.println("Please enter your username");
+        String username = entryReader.readLine();
+
+        System.out.println("Please enter your password");
+        String password = entryReader.readLine();
     }
 }
