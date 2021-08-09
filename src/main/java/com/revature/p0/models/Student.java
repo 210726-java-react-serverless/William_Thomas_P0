@@ -7,6 +7,14 @@ public class Student {
     private String password;
     private String username;
 
+    public Student(String firstName, String lastName, String emailAddress, String password, String username) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.username = username;
+    }
+
     public String getFirstName() {
         return firstName;
     }

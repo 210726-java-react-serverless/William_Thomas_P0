@@ -1,6 +1,8 @@
 package com.revature.p0.util;
 
+import com.revature.p0.repository.StudentRepository;
 import com.revature.p0.screens.*;
+import com.revature.p0.services.UserService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,6 +12,8 @@ public class AppState {
     private boolean appRunning = true;
     ScreenRouter screenRouter = new ScreenRouter();
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    StudentRepository studentRepository = new StudentRepository();
+    UserService userService = new UserService(studentRepository);
 
     public AppState() {
         this.screenRouter = new ScreenRouter();
@@ -18,7 +22,7 @@ public class AppState {
                     .add(new StudentScreen(reader, screenRouter))
                     .add(new FacultyLogInScreen(reader, screenRouter))
                     .add(new StudentLogInScreen(reader, screenRouter))
-                    .add(new StudentRegisterScreen(reader, screenRouter));
+                    .add(new StudentRegisterScreen(reader, screenRouter, userService));
     }
 
     public void starting(){

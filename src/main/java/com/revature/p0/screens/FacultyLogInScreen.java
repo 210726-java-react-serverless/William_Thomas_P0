@@ -20,5 +20,7 @@ public class FacultyLogInScreen extends Screen{
 
         System.out.println("Please enter your password");
         String password = entryReader.readLine();
+
+        screenRouter.navigate("faculty");
     }
 }
