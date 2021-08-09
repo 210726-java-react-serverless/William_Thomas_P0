@@ -10,6 +10,8 @@ public class StudentScreen extends Screen{
         super("student", entryReader, screenRouter);
     }
 
+    String code;
+
     @Override
     public void render() throws IOException {
         String options = "Student Screen:\n" +
@@ -20,6 +22,29 @@ public class StudentScreen extends Screen{
                 "5) Return to Welcome Screen";
         System.out.println(options);
         String entry = entryReader.readLine();
-        if (entry.equals("5")) screenRouter.navigate("welcome");
+        switch(entry){
+            case "1":
+                System.out.println("Here are the available classes:\n");
+                break;
+            case "2":
+                System.out.println("Register:\n" +
+                        "Enter class code\n");
+                code = entryReader.readLine();
+                System.out.println("You are registered for " + code + "\n");
+                break;
+            case "3":
+                System.out.println("Enter code for class to drop\n");
+                code = entryReader.readLine();
+                System.out.println("You have dropped " + code + "\n");
+                break;
+            case "4":
+                System.out.println("Here are your classes\n");
+                break;
+            case "5":
+                screenRouter.navigate("welcome");
+                break;
+            default:
+                System.out.println("Invalid entry\n");
+        }
     }
 }

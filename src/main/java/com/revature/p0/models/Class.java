@@ -4,7 +4,7 @@ public class Class {
 
     private String subject;
     private String code;
-    private String number;
+    private String level;
     private String description;
 
     public String getSubject() {
@@ -24,11 +24,11 @@ public class Class {
     }
 
     public String getNumber() {
-        return number;
+        return level;
     }
 
     public void setNumber(String number) {
-        this.number = number;
+        this.level = number;
     }
 
     public String getDescription() {

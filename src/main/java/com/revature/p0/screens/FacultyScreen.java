@@ -19,6 +19,21 @@ public class FacultyScreen extends Screen {
                 "4) Return to Welcome Screen\n";
         System.out.println(options);
         String entry = entryReader.readLine();
+        switch (entry){
+            case "1":
+                screenRouter.navigate("add");
+                break;
+            case "2":
+                screenRouter.navigate("edit");
+                break;
+            case "3":
+                System.out.println("Enter code of class to remove\n");
+                String code = entryReader.readLine();
+                System.out.println(code + " has been removed\n");
+                break;
+            default:
+                System.out.println("Invalid entry\n");
+        }
         if (entry.equals("4")) screenRouter.navigate("welcome");
     }
 }
