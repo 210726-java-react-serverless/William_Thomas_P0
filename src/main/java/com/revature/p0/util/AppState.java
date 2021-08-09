@@ -1,8 +1,6 @@
 package com.revature.p0.util;
 
-import com.revature.p0.screens.FacultyScreen;
-import com.revature.p0.screens.StudentScreen;
-import com.revature.p0.screens.WelcomeScreen;
+import com.revature.p0.screens.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,13 +15,14 @@ public class AppState {
         this.screenRouter = new ScreenRouter();
         screenRouter.add(new WelcomeScreen(reader, screenRouter))
                     .add(new FacultyScreen(reader, screenRouter))
-                    .add(new StudentScreen(reader, screenRouter));
-        System.out.println("1");
+                    .add(new StudentScreen(reader, screenRouter))
+                    .add(new FacultyLogInScreen(reader, screenRouter))
+                    .add(new StudentLogInScreen(reader, screenRouter))
+                    .add(new StudentRegisterScreen(reader, screenRouter));
     }
 
     public void starting(){
         screenRouter.navigate("welcome");
-        System.out.println("2");
         while (appRunning){
             try {
                 screenRouter.getActiveScreen().render();

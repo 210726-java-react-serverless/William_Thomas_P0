@@ -22,7 +22,13 @@ public class WelcomeScreen extends Screen{
 
         switch(entry){
             case "1":
-                screenRouter.navigate("2");
+                screenRouter.navigate("register");
+                break;
+            case "2":
+                screenRouter.navigate("studentLogin");
+                break;
+            case "3":
+                screenRouter.navigate("facultyLogin");
                 break;
         }
     }
