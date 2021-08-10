@@ -28,3 +28,6 @@ target/
 #Idea folders
 .idea/
 *.iml
+
+#properties files
+*.properties

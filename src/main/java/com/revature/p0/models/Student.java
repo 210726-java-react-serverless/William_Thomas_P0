@@ -1,6 +1,7 @@
 package com.revature.p0.models;
 
 public class Student {
+    private String id;
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -53,5 +54,13 @@ public class Student {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
