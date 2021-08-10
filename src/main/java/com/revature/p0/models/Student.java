@@ -5,15 +5,15 @@ public class Student {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private String password;
     private String username;
+    private String password;
 
-    public Student(String firstName, String lastName, String emailAddress, String password, String username) {
+    public Student(String firstName, String lastName, String emailAddress, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.password = password;
         this.username = username;
+        this.password = password;
     }
 
     public String getFirstName() {

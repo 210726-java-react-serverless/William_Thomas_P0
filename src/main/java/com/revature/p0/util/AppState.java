@@ -21,7 +21,7 @@ public class AppState {
                     .add(new FacultyScreen(reader, screenRouter))
                     .add(new StudentScreen(reader, screenRouter))
                     .add(new FacultyLogInScreen(reader, screenRouter))
-                    .add(new StudentLogInScreen(reader, screenRouter))
+                    .add(new StudentLogInScreen(reader, screenRouter, userService))
                     .add(new StudentRegisterScreen(reader, screenRouter, userService))
                     .add(new AddClassScreen(reader, screenRouter))
                     .add(new EditClassScreen(reader, screenRouter));

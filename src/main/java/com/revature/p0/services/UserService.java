@@ -15,8 +15,8 @@ public class UserService {
         studentRepository.save(student);
     }
 
-    public void loginStudent(){
-
+    public void loginStudent(String username, String password){
+        studentRepository.login(username, password);
     }
 
     public void loginFaculty(){
