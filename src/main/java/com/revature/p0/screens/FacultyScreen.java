@@ -1,14 +1,18 @@
 package com.revature.p0.screens;
 
+import com.revature.p0.services.ClassService;
 import com.revature.p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class FacultyScreen extends Screen {
-    public FacultyScreen(BufferedReader entryReader, ScreenRouter screenRouter) {
+    public FacultyScreen(BufferedReader entryReader, ScreenRouter screenRouter, ClassService classService) {
         super("faculty", entryReader, screenRouter);
+        this.classService = classService;
     }
+
+    ClassService classService;
 
     @Override
     public void render() throws IOException {
@@ -28,8 +32,9 @@ public class FacultyScreen extends Screen {
                 break;
             case "3":
                 System.out.println("Enter code of class to remove\n");
-                String code = entryReader.readLine();
-                System.out.println(code + " has been removed\n");
+                String cd = entryReader.readLine();
+                classService.remove(cd);
+                System.out.println(cd + " has been removed\n");
                 break;
             default:
                 System.out.println("Invalid entry\n");
