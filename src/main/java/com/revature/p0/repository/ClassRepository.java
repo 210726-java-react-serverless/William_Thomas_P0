@@ -155,7 +155,7 @@ public class ClassRepository {
         }
     }
 
-    public boolean empty(String cd){
+    public void register(String cd, String studentUsername){
         Properties prop = new Properties();
 
         try {
@@ -180,61 +180,32 @@ public class ClassRepository {
             MongoDatabase cdb = mongoClient.getDatabase("project0");
             MongoCollection<Document> cCollection = cdb.getCollection("classDB");
 
-            FindIterable<Document> docs = cCollection.find();
-            for (Document doc : docs){
-                System.out.println("this " + doc);
-            }
-
-        }
-
-        return true;
-    }
-
-    public void register(String cd){
-        Properties prop = new Properties();
-
-        try {
-            prop.load(new FileReader("src/main/resources/application.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            //throw new ResourcePersistenceException("Cannot find application.properties");
-        }
-
-        String ipAddress = prop.getProperty("ipAddress");
-        int port = Integer.parseInt(prop.getProperty("port"));
-        String dbName = prop.getProperty("dbName");
-        String username = prop.getProperty("username");
-        String password = prop.getProperty("password");
-
-        try(MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
-                        .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(ipAddress, port))))
-                        .credential(MongoCredential.createScramSha1Credential(username, dbName, password.toCharArray()))
-                        .build()
-        )){
-            MongoDatabase cdb = mongoClient.getDatabase("project0");
-            MongoCollection<Document> cCollection = cdb.getCollection("classDB");
-
-            String user = "username";
             FindIterable<Document> docs = cCollection.
                     find(Filters.eq("code", cd));
+            //
+            for (int i = 1; i < 21; i++){
+                boolean empty = true;
+                FindIterable<Document> checks = cCollection.find(Filters.exists(String.valueOf("student " + i)));
+                for (Document check : checks) {
+                    empty = false;
 
-            for (int i = 0; i < 20; i++){
-                FindIterable<Document> check = cCollection.find(Filters.exists(String.valueOf(i)));
-                //for (Document check : checks) {
-                    System.out.println("check is " + check);
-                    if (check == null) {
+                    FindIterable<Document> checkDrops = cCollection.find(Filters.eq(String.valueOf("student " + i), "dropped"));
+                    for (Document checkDrop : checkDrops){
+                        empty = true;
+                    }
+
+                }
+                    if (empty == true) {
                         cCollection.updateOne(Filters.eq("code", cd),
-                                new Document("$set", new Document(String.valueOf(i), user)));
+                                new Document("$set", new Document(String.valueOf("student " + i), studentUsername)));
                         break;
                     }
-                //}
             }
 
         }
     }
 
-    public void drop(String cd) {
+    public void drop(String cd, String studentUsername) {
         Properties prop = new Properties();
 
         try {
@@ -259,16 +230,23 @@ public class ClassRepository {
             MongoDatabase cdb = mongoClient.getDatabase("project0");
             MongoCollection<Document> cCollection = cdb.getCollection("classDB");
 
-            String user = "username";
-            cCollection.updateOne(Filters.eq("code", cd),
-                    new Document("$set", new Document(user, user)));
+            for(int i = 1; i < 21; i++) {
+                FindIterable<Document> docs = cCollection.find(Filters.eq(String.valueOf("student " + i), studentUsername));
+                boolean present = false;
+                for (Document doc : docs){
+                    present = true;
+                }
 
-            cCollection.deleteOne(Filters.eq(user, user));
+                if(present == true){
+                    cCollection.updateOne(Filters.eq("code", cd),
+                            new Document("$set", new Document("student " + i, "dropped")));
+                }
+            }
 
         }
     }
 
-    public void show(){
+    public void show(String studentUsername){
         Properties prop = new Properties();
 
         try {
@@ -293,11 +271,11 @@ public class ClassRepository {
             MongoDatabase cdb = mongoClient.getDatabase("project0");
             MongoCollection<Document> cCollection = cdb.getCollection("classDB");
 
-            String user = "bill";
-
-            FindIterable<Document> docs = cCollection.find(Filters.exists(user));
-            for (Document doc : docs){
-                System.out.println("this " + doc);
+            for(int i = 1; i < 21; i++) {
+                FindIterable<Document> docs = cCollection.find(Filters.eq(String.valueOf("student " + i), studentUsername));
+                for (Document doc : docs){
+                    System.out.println(doc + "\n\n");
+                }
             }
 
         }

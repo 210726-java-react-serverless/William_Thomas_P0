@@ -10,7 +10,6 @@ public class StudentScreen extends Screen{
     public StudentScreen(BufferedReader entryReader, ScreenRouter screenRouter, ClassService classService) {
         super("student", entryReader, screenRouter);
         this.classService = classService;
-        this.username = screenRouter.username;
     }
 
     String username;
@@ -19,7 +18,9 @@ public class StudentScreen extends Screen{
 
     @Override
     public void render() throws IOException {
-        String options = "Student Screen:\n" +
+        this.username = screenRouter.username;
+
+        String options = "Hello " + username + ". Welcome to the student screen.\n" +
                 "1) View All Classes\n" +
                 "2) Register for a Class\n" +
                 "3) Drop a Class\n" +
@@ -36,17 +37,18 @@ public class StudentScreen extends Screen{
                 System.out.println("Register:\n" +
                         "Enter class code\n");
                 String cd = entryReader.readLine();
-                classService.register(cd);
+                classService.register(cd, username);
                 System.out.println("You are registered for " + cd + "\n");
                 break;
             case "3":
                 System.out.println("Enter code for class to drop\n");
                 String cod = entryReader.readLine();
+                classService.drop(cod, username);
                 System.out.println("You have dropped " + cod + "\n");
                 break;
             case "4":
-                System.out.println("Here are your classes\n");
-                classService.show();
+                System.out.println("Here are your classes:");
+                classService.show(username);
                 break;
             case "5":
                 screenRouter.navigate("welcome");

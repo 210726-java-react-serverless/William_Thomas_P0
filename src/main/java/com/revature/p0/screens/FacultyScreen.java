@@ -10,7 +10,6 @@ public class FacultyScreen extends Screen {
     public FacultyScreen(BufferedReader entryReader, ScreenRouter screenRouter, ClassService classService) {
         super("faculty", entryReader, screenRouter);
         this.classService = classService;
-        this.username = screenRouter.username;
     }
 
     String username;
@@ -18,7 +17,9 @@ public class FacultyScreen extends Screen {
 
     @Override
     public void render() throws IOException {
-        String options = "Faculty Screen\n" +
+        this.username = screenRouter.username;
+
+        String options = "Hello " + username + ". Welcome to the faculty Screen\n" +
                 "1) Add a Class\n" +
                 "2) Edit a Class\n" +
                 "3) Remove a Class\n" +

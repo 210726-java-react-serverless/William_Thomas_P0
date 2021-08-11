@@ -23,15 +23,19 @@ public class ClassService {
         classRepository.showAll();
     }
 
-    public void show(){
-        classRepository.showAll();
+    public void show(String username){
+        classRepository.show(username);
     }
 
-    public void register(String cd){
-        classRepository.register(cd);
+    public void register(String cd, String username){
+        classRepository.register(cd, username);
     }
 
     public void edit(Classes c, String cd){
         classRepository.edit(c, cd);
+    }
+
+    public void drop(String cd, String username){
+        classRepository.drop(cd, username);
     }
 }
