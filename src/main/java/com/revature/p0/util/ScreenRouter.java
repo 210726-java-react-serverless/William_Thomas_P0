@@ -9,6 +9,7 @@ public class ScreenRouter {
 
     private Screen activeScreen;
     private Set<Screen> screens = new HashSet<>();
+    public String username;
 
     public ScreenRouter add(Screen screen){
         screens.add(screen);
@@ -19,6 +20,16 @@ public class ScreenRouter {
         for (Screen screen : screens){
             if (screen.getRoute().equals(route)){
                 activeScreen = screen;
+                break;
+            }
+        }
+    }
+
+    public void navigate(String route, String username){
+        for (Screen screen : screens){
+            if (screen.getRoute().equals(route)){
+                activeScreen = screen;
+                this.username = username;
                 break;
             }
         }

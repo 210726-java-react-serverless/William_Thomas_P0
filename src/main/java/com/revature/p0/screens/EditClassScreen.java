@@ -29,7 +29,7 @@ public class EditClassScreen extends Screen{
         System.out.println("Change class description to");
         String description = entryReader.readLine();
 
-        Classes c = new Classes(cd, subject, level, description);
+        Classes c = new Classes(subject, cd, level, description);
 
         classService.edit(c, cd);
 

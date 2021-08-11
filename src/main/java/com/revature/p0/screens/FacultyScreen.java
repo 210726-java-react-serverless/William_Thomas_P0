@@ -10,8 +10,10 @@ public class FacultyScreen extends Screen {
     public FacultyScreen(BufferedReader entryReader, ScreenRouter screenRouter, ClassService classService) {
         super("faculty", entryReader, screenRouter);
         this.classService = classService;
+        this.username = screenRouter.username;
     }
 
+    String username;
     ClassService classService;
 
     @Override

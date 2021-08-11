@@ -14,15 +14,18 @@ public class UserService {
     private StudentRepository studentRepository;
     private FacultyRepository facultyRepository;
 
-    public void registerStudent(Student student){
-        studentRepository.save(student);
+    public boolean registerStudent(Student student){
+        boolean sRegister = studentRepository.save(student);
+        return sRegister;
     }
 
-    public void loginStudent(String username, String password){
-        studentRepository.login(username, password);
+    public boolean loginStudent(String username, String password){
+        boolean sLogin = studentRepository.login(username, password);
+        return sLogin;
     }
 
-    public void loginFaculty(String username, String password){
-        facultyRepository.login(username, password);
+    public boolean loginFaculty(String username, String password){
+        boolean fLogin = facultyRepository.login(username, password);
+        return fLogin;
     }
 }

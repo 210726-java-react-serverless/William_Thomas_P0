@@ -15,8 +15,7 @@ import java.util.Properties;
 
 public class StudentRepository {
 
-    public Student save(Student student){
-        System.out.println("registered " + student.getFirstName());
+    public boolean save(Student student){
 
         Properties prop = new Properties();
 
@@ -26,6 +25,8 @@ public class StudentRepository {
             e.printStackTrace();
             //throw new ResourcePersistenceException("Cannot find application.properties");
         }
+
+        boolean result = false;
 
         String ipAddress = prop.getProperty("ipAddress");
         int port = Integer.parseInt(prop.getProperty("port"));
@@ -50,17 +51,23 @@ public class StudentRepository {
             sCollection.insertOne(sDoc);
 
             student.setId(sDoc.get("_id").toString());
-            System.out.println(student);
+
+            if(student.getId() != null){
+                System.out.println("Registered!");
+                result = true;
+            }
         }
 
 
-        return student;
+        return result;
     }
 
-    public void login(String studentUsername, String studentPassword){
+
+
+
+    public boolean login(String studentUsername, String studentPassword){
 
         Properties prop = new Properties();
-        //Student student;
 
         try {
             prop.load(new FileReader("src/main/resources/application.properties"));
@@ -68,6 +75,8 @@ public class StudentRepository {
             e.printStackTrace();
             //throw new ResourcePersistenceException("Cannot find application.properties");
         }
+
+        boolean result = false;
 
         String ipAddress = prop.getProperty("ipAddress");
         int port = Integer.parseInt(prop.getProperty("port"));
@@ -87,12 +96,13 @@ public class StudentRepository {
                 FindIterable<Document> docs = sCollection.
                         find(Filters.and(Filters.eq("username", studentUsername), Filters.eq("password", studentPassword)));
                 for(Document doc : docs) {
-                    System.out.println(doc);
+                    if(doc != null){
+                        result = true;
+                    }
                 }
 
         }
-
-       // Student student = new Student("a","a","a","a","a");
-        //return student;
+        return result;
     }
+
 }

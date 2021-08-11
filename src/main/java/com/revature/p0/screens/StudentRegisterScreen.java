@@ -35,7 +35,13 @@ public class StudentRegisterScreen extends Screen{
         String password = entryReader.readLine();
 
         Student student = new Student(firstname, lastname, email, username, password);
-        userService.registerStudent(student);
-        screenRouter.navigate("student");
+        boolean result = userService.registerStudent(student);
+
+        if(result == true){
+            screenRouter.navigate("student", username);
+        } else{
+            System.out.println("Invalid entry");
+            screenRouter.navigate("welcome");
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public class FacultyRepository {
 
-    public void login(String facultyUsername, String facultyPassword) {
+    public boolean login(String facultyUsername, String facultyPassword) {
         Properties prop = new Properties();
 
         try {
@@ -41,13 +41,17 @@ public class FacultyRepository {
             MongoDatabase fdb = mongoClient.getDatabase("project0");
             MongoCollection<Document> fCollection = fdb.getCollection("facultyDB");
 
+            boolean result = false;
             FindIterable<Document> docs = fCollection.
                     find(Filters.and(Filters.eq("username", facultyUsername),
                             Filters.eq("password", facultyPassword)));
             for (Document doc : docs) {
-                System.out.println(doc);
+                if (doc != null){
+                    result = true;
+                }
             }
 
+            return result;
         }
     }
 }

@@ -26,8 +26,14 @@ public class StudentLogInScreen extends Screen{
         System.out.println("Please enter your password");
         String password = entryReader.readLine();
 
-        userService.loginStudent(username, password);
-        screenRouter.navigate("student");
+        boolean result = userService.loginStudent(username, password);
+
+        if(result == true) {
+            screenRouter.navigate("student", username);
+        }else{
+            System.out.println("wrong username or password");
+            screenRouter.navigate("welcome");
+        }
     }
 
 }

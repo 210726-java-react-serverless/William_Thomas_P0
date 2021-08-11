@@ -19,6 +19,18 @@ public class ClassService {
         classRepository.remove(cd);
     }
 
+    public void showAll(){
+        classRepository.showAll();
+    }
+
+    public void show(){
+        classRepository.showAll();
+    }
+
+    public void register(String cd){
+        classRepository.register(cd);
+    }
+
     public void edit(Classes c, String cd){
         classRepository.edit(c, cd);
     }

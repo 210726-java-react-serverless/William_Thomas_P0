@@ -24,8 +24,13 @@ public class FacultyLogInScreen extends Screen{
         System.out.println("Please enter your password");
         String password = entryReader.readLine();
 
-        userService.loginFaculty(username, password);
+        boolean result = userService.loginFaculty(username, password);
 
-        screenRouter.navigate("faculty");
+        if(result == true) {
+            screenRouter.navigate("faculty", username);
+        }else{
+            System.out.println("wrong username or password");
+            screenRouter.navigate("welcome");
+        }
     }
 }
